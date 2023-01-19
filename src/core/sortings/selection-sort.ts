@@ -15,7 +15,7 @@ class SelectionSort {
                 }
             }
             // swap
-            let backupVal = output[i];
+            const backupVal = output[i];
             output[i] = minVal;
             output[minPos] = backupVal;
         }
