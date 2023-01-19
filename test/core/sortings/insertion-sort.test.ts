@@ -1,7 +1,7 @@
 import 'jasmine';
-import { selectionSort as execute } from '../../../src/core/sortings/selection-sort';
+import { insertionSort as execute } from '../../../src/core/sortings/insertion-sort';
 
-describe('SelectionSort', () => {
+describe('InsertionSort', () => {
 
     it('test_001', () => {
         const input:Array<number> = [];
