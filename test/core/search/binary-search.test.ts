@@ -1,23 +1,5 @@
 import { binarySearch as execute } from "../../../src/core/search/binary-search";
 
-function generate() {
-    const size:number = Math.floor(Math.random() * 50);
-    const input:Array<number> = new Array<number>(size);
-    for (let i=0; i<size; i++) {
-        input[i] = Math.floor(Math.random() * 20);
-    }
-    return input;
-}
-
-const generate2:(()=>Array<number>) = (() => {
-    const size:number = Math.floor(Math.random() * 50);
-    const input:Array<number> = new Array<number>(size);
-    for (let i=0; i<size; i++) {
-        input[i] = Math.floor(Math.random() * 20);
-    }
-    return input;
-});
-
 describe('Binary Search', () => {
 
     it('empty_input', () => {
