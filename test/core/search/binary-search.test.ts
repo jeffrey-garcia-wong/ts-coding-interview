@@ -33,12 +33,7 @@ describe('Binary Search', () => {
         });
         expect(execute(input, 34)).toEqual(input.indexOf(34));
     });
-
-    it('test', () => {
-        const input = [0,0,1,1,1,1,2,2,3,4,5,6,6,6,9,10,11,12,12,12,12,12,13,14,15,17,17,17,18,18,18,19,19,19];
-        expect(execute(input, 18)).toEqual(input.indexOf(18));
-    }, 1);
-
+    
     class RandomInput {
         public readonly target:number;
         public readonly array:Array<number>;

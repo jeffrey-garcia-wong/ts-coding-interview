@@ -27,7 +27,7 @@ describe('BubbleSort', () => {
         expect(execute(input).toString()).toEqual(expected.toString());
     }, 10);
     
-    const generateRandom = (() => {
+    const generateRandom:(()=>Array<number>) = (() => {
         const size = Math.floor(Math.random() * 50);
         const input = new Array<number>(size);
         for (let i=0; i<size; i++) {
@@ -41,7 +41,7 @@ describe('BubbleSort', () => {
         const promise = new Promise<number>((resolve, reject) => {
             const completedList = new Array<number>();
             for (let i=0; i<TASK_SIZE; i++) {
-                const fn = ((e:number) => {
+                const fn:((e:number)=>void) = ((e:number) => {
                     const input = generateRandom();
                     const expected = [... input];
                     expected.sort((a,b) => {
