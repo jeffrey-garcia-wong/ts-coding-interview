@@ -5,17 +5,30 @@ class QuickSort {
     }
 
     private solutionV1(input:Array<number>):Array<number> {
-        this.quicksort(input, 0, input.length-1);
-        return input;
+        return this.quicksort(input, 0, input.length-1);
     }
 
-    private quicksort(data:Array<number>, start:number, end:number) {
-    }
+    private quicksort(input:Array<number>, start:number, end:number):Array<number> {
+        if (input.length < 2) return input;
 
-    private partition(data:Array<number>, pivotVal:number, start:number, end:number):number {
-        return 0;
-    }
+        let lower = new Array<number>();
+        let higher = new Array<number>();
 
+        let pivot = input[0];
+        for (let i=1; i<input.length; i++) {
+            if (input[i] < pivot) {
+                lower.push(input[i]);
+            } else {
+                higher.push(input[i]);
+            }
+        }
+
+        const output = new Array<number>();
+        output.push(... this.quicksort(lower, start, end));
+        output.push(pivot);
+        output.push(... this.quicksort(higher, start, end));
+        return output;
+    }
 }
 
 const sort = new QuickSort();
