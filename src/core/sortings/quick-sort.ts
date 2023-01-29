@@ -5,10 +5,10 @@ class QuickSort {
     }
 
     private solutionV1(input:Array<number>):Array<number> {
-        return this.quicksort(input, 0, input.length-1);
+        return this.quicksort(input);
     }
 
-    private quicksort(input:Array<number>, start:number, end:number):Array<number> {
+    private quicksort(input:Array<number>):Array<number> {
         if (input.length < 2) return input;
 
         let lower = new Array<number>();
@@ -24,9 +24,9 @@ class QuickSort {
         }
 
         const output = new Array<number>();
-        output.push(... this.quicksort(lower, start, end));
+        output.push(... this.quicksort(lower));
         output.push(pivot);
-        output.push(... this.quicksort(higher, start, end));
+        output.push(... this.quicksort(higher));
         return output;
     }
 }
