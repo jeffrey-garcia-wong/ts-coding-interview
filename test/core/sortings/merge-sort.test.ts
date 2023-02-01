@@ -4,19 +4,22 @@ describe('MergeSort', () => {
 
     it('empty_input', () => {
         const input:Array<number> = [];
-        const expected:Array<number> = [...input].sort();
+        const expected:Array<number> = [...input];
+        expected.sort((a,b) => { return a - b; });
         expect(execute(input)).toEqual(expected);
     }, 10);
 
     it('small_input', () => {
         const input:Array<number> = [3,1,2];
-        const expected:Array<number> = [...input].sort();        
+        const expected:Array<number> = [...input];
+        expected.sort((a,b) => { return a - b; });
         expect(execute(input).toString()).toEqual(expected.toString());
     }, 10);
 
     it('small_identical_input', () => {
         const input:Array<number> = [5,5,5,5,5];
-        const expected:Array<number> = [...input].sort();        
+        const expected:Array<number> = [...input];
+        expected.sort((a,b) => { return a - b; });        
         expect(execute(input).toString()).toEqual(expected.toString());
     }, 10); 
     

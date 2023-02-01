@@ -4,48 +4,49 @@ class MergeSort {
     }
 
     private solutionV1(input:Array<number>):Array<number> {
-        return this.mergeSort(input);
+        this.mergeSort(input, 0, input.length - 1, new Array<number>(input.length).fill(0));
+        return input;
     }
 
-    private mergeSort(input:Array<number>):Array<number> {
-        if (input.length<2) return input;
-
-        const middle = Math.floor(input.length / 2);
-        const left = input.slice(0, middle);
-        const right = input.slice(middle, input.length);
-
-        const sortedLeft = this.solutionV1(left);
-        const sortedRight = this.solutionV1(right);
-
-        return this.merge(sortedLeft, sortedRight);
+    private mergeSort(input:Array<number>, start:number, end:number, tmp:Array<number>):void {
+        if ((end - start) < 1) return;
+        const splitIndex = start + Math.floor((end - start) / 2);
+        this.mergeSort(input, start, splitIndex, tmp);
+        this.mergeSort(input, splitIndex+1, end, tmp);
+        this.merge(input, start, splitIndex, splitIndex+1, end, tmp);
     }
 
-    private merge(left:Array<number>, right:Array<number>):Array<number> {
-        let leftCount = 0;
-        let rightCount = 0;
-        const merged = new Array<number>();
-
-        while (leftCount<left.length && rightCount<right.length) {
-            if (left[leftCount] < right[rightCount]) {
-                merged.push(left[leftCount]);
-                leftCount++;
+    private merge(input:Array<number>, leftStart:number, leftEnd:number, rightStart:number, rightEnd:number, tmp:Array<number>):void {
+        const start:number = leftStart;
+        const end:number = rightEnd;
+        
+        let current = leftStart;
+        while (leftStart <= leftEnd && rightStart <= rightEnd) {
+            if (input[leftStart] < input[rightStart]) {
+                tmp[current] = input[leftStart];
+                leftStart += 1;
             } else {
-                merged.push(right[rightCount]);
-                rightCount++;
-            }         
+                tmp[current] = input[rightStart];
+                rightStart += 1;
+            }
+            current += 1;
         }
 
-        while(leftCount<left.length) {
-            merged.push(left[leftCount]);
-            leftCount++;
+        while (leftStart <= leftEnd) {
+            tmp[current] = input[leftStart];
+            leftStart += 1;
+            current += 1;
         }
 
-        while(rightCount<right.length) {
-            merged.push(right[rightCount]);
-            rightCount++;
-        }           
+        while (rightStart <= rightEnd) {
+            tmp[current] = input[rightStart];
+            rightStart += 1;
+            current += 1;
+        }
 
-        return merged;
+        for (let i=start; i<=end; i++) {
+            input[i] = tmp[i];
+        }
     }
 }
 
