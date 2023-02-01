@@ -8,7 +8,7 @@
     "clean": "del-cli dist tmp .nyc_output",
     "build": "npm run clean && npx tsc --project tsconfig.app.json",
     "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json",
-    "test:single": "ts-node node_modules/jasmine/bin/jasmine \"test/core/sortings/merge-sort.test.ts\"",
+    "test:single": "ts-node node_modules/jasmine/bin/jasmine \"test/core/sortings/quick-sort.test.ts\"",
     "test:coverage": "nyc --reporter=lcov npm run test",
     "lint": "npx eslint ."
   },
