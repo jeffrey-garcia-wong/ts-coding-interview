@@ -31,8 +31,8 @@ describe('InsertionSort', () => {
         expect(execute(input).toString()).toEqual(expected.toString());
     }, 10);
     
-    const generateRandom:(()=>Array<number>) = (() => {
-        const size = Math.floor(Math.random() * 50);
+    const generateRandom:((defaultSize?:number|null)=>Array<number>) = ((defaultSize?:number|null) => {
+        const size = defaultSize==null ? Math.floor(Math.random() * 50):defaultSize;
         const input = new Array<number>(size);
         for (let i=0; i<size; i++) {
             input[i] = Math.floor(Math.random() * 20);
@@ -42,9 +42,8 @@ describe('InsertionSort', () => {
 
     it('repeat_random_100_times_concurrently', async() => {
         const TASK_SIZE:number = 100;
-        const promise = new Promise<number>((resolve, reject) => {
-            const completedList = new Array<number>();
-            for (let i=0; i<TASK_SIZE; i++) {
+        for (let i=0; i<TASK_SIZE; i++) {
+            await new Promise<number>((resolve, reject) => {
                 const fn:((e:number)=>void) = ((e:number) => {
                     const input = generateRandom();
                     const expected = [... input];
@@ -55,18 +54,37 @@ describe('InsertionSort', () => {
                     try {
                         const output = execute(input);
                         expect(output.toString()).toEqual(expected.toString());
-                        completedList.push(e);
-                        if (completedList.length == TASK_SIZE) {
-                            resolve(completedList.length);
-                        }
+                        resolve(e);
                     } catch (err:any) {
                         reject(err);
                     }
                 });
                 setTimeout(fn, 1, i);
-            }
-        });
-        await promise.then((e:number) => {}).catch((err:any) => {}).finally(() => {});
-    }, 100); 
-       
+            }).then((e:number) => {}).catch((err:any) => {}).finally(() => {});
+        }
+    }, 500); 
+
+    it('repeat_random_100_times_concurrently_medium_input', async() => {
+        const TASK_SIZE:number = 100;
+        for (let i=0; i<TASK_SIZE; i++) {
+            await new Promise<number>((resolve, reject) => {
+                const fn:((e:number)=>void) = ((e:number) => {
+                    const input = generateRandom(10000);
+                    const expected = [... input];
+                    expected.sort((a,b) => {
+                        return a - b;
+                    });
+
+                    try {
+                        const output = execute(input);
+                        expect(output.toString()).toEqual(expected.toString());
+                        resolve(e);
+                    } catch (err:any) {
+                        reject(err);
+                    }
+                });
+                setTimeout(fn, 1, i);
+            }).then((e:number) => {}).catch((err:any) => {}).finally(() => {});
+        }
+    }, 10000);
 })
